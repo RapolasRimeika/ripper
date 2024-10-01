@@ -5,17 +5,21 @@ import git
 from settings import SYSTEM_PROMPT, CONFIG_FILES, FILE_EXTENSIONS
 
 
-def collect_project_files(output_file="project_contents.txt", project_dir=None, include_hidden=False):
+def collect_project_files(project_dir=None, include_hidden=False):
     """
     Collects all the files with specified extensions (.py, .txt, .json, .md) from the current directory (or a specified directory)
-    and copies their contents into a single .txt file. Configuration files like `requirements.txt` are highlighted in a separate section.
+    and copies their contents into a single .txt file. The output file is named after the project directory with '_ripped.txt' appended.
+    Configuration files like `requirements.txt` are highlighted in a separate section.
     
     Parameters:
-    output_file (str): The name of the output file that will store the collected project contents.
     project_dir (str): The directory of the project to collect files from. If None, uses the current directory.
     include_hidden (bool): Whether to include hidden files and directories.
     """
-    current_directory = os.path.basename(project_dir) if project_dir else os.path.basename(os.getcwd())  # Get the final directory name
+    # Determine the name of the project directory or repository
+    current_directory = os.path.basename(project_dir) if project_dir else os.path.basename(os.getcwd())
+    
+    # Define the output file name
+    output_file = f"{current_directory}_ripped.txt"
     
     with open(output_file, 'w') as f_out:
         f_out.write(SYSTEM_PROMPT)  # Write the system prompt from settings.py
@@ -52,23 +56,28 @@ def collect_project_files(output_file="project_contents.txt", project_dir=None, 
     print(f"All project files and configuration files have been copied into '{output_file}' with clear delineation markers.")
 
 
-def clone_and_collect_files(github_url, output_file="project_contents.txt", include_hidden=False):
+def clone_and_collect_files(github_url, include_hidden=False):
     """
     Clones a GitHub repository and uses the collect_project_files() function to collect the project files.
     
     Parameters:
     github_url (str): The URL of the GitHub repository to clone.
-    output_file (str): The name of the output file that will store the collected project contents.
     include_hidden (bool): Whether to include hidden files and directories.
     """
+    # Extract the repository name from the GitHub URL
     repo_name = github_url.split('/')[-1].replace('.git', '')
     
+    # Clone the repository
     if os.path.exists(repo_name):
-        shutil.rmtree(repo_name)
+        shutil.rmtree(repo_name)  # Remove the directory if it already exists to avoid conflicts
     git.Repo.clone_from(github_url, repo_name)
     
     print(f"Cloned repository '{repo_name}' from {github_url}")
-    collect_project_files(output_file, project_dir=repo_name, include_hidden=include_hidden)
+    
+    # Collect project files from the cloned repository
+    collect_project_files(project_dir=repo_name, include_hidden=include_hidden)
+    
+    # Optionally remove the cloned directory after processing
     shutil.rmtree(repo_name)
     print(f"Removed the cloned repository '{repo_name}' after processing")
 

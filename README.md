@@ -18,7 +18,10 @@ This Python script allows you to collect and aggregate the contents of specific 
 - Local file collection: Gathers project files from the current directory or a specified project directory.
 - GitHub repository cloning: Clones a GitHub repository and collects the project files from it.
 - Customizable inclusion of hidden files: Option to include hidden files and directories using the `-a` flag.
-- Output aggregation: The collected file contents are written to a single `.txt` file. Perfect for rag tasks.
+- Output aggregation: The collected file contents are written to a single `.txt` file.
+- System prompt integration: Uses a custom system prompt from the `settings.py` file.
+- Configurable via `settings.py`: The system prompt, included file types, and configuration files are defined in the `settings.py` file.
+
 
 ## Requirements
 
