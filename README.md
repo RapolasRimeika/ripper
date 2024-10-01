@@ -18,7 +18,7 @@ This Python script allows you to collect and aggregate the contents of specific 
 - Local file collection: Gathers project files from the current directory or a specified project directory.
 - GitHub repository cloning: Clones a GitHub repository and collects the project files from it.
 - Customizable inclusion of hidden files: Option to include hidden files and directories using the `-a` flag.
-- Output aggregation: The collected file contents are written to a single `.txt` file.
+- Output aggregation: The collected file contents are written to a single `.txt` file. Perfect for rag tasks.
 
 ## Requirements
 
@@ -34,13 +34,13 @@ To install `GitPython`, run: `pip install gitpython`.
 To collect files from the current working directory and ignore hidden files, run:
 
 ```bash
-python project_collector.py
+python ripper.py
 ```
 
 To collect files and include hidden files and directories, run:
 
 ```bash
-python project_collector.py -a
+python ripper.py -a
 ```
 
 ### Cloning a GitHub repository and collecting files
@@ -48,13 +48,13 @@ python project_collector.py -a
 To clone a GitHub repository, collect project files, and ignore hidden files, run:
 
 ```bash
-python project_collector.py -github https://github.com/username/repo.git
+python ripper.py -github https://github.com/username/repo.git
 ```
 
 To include hidden files from the cloned repository, run:
 
 ```bash
-python project_collector.py -github https://github.com/username/repo.git -a
+python ripper.py -github https://github.com/username/repo.git -a
 ```
 
 ## Parameters
@@ -65,9 +65,9 @@ python project_collector.py -github https://github.com/username/repo.git -a
 
 ## Example
 
-1. **Local collection without hidden files**: `python project_collector.py`. This will collect all `.py`, `.txt`, `.json`, and `.md` files from the current directory, excluding hidden files, and store the combined contents in `project_contents.txt`.
+1. **Local collection without hidden files**: `python3 ripper.py`. This will collect all `.py`, `.txt`, `.json`, and `.md` files from the current directory, excluding hidden files, and store the combined contents in `project_contents.txt`.
 
-2. **Cloning a repository and including hidden files**: `python project_collector.py -github https://github.com/username/repo.git -a`. This will clone the specified GitHub repository, collect all `.py`, `.txt`, `.json`, and `.md` files (including hidden files), and store them in `project_contents.txt`.
+2. **Cloning a repository and including hidden files**: `python3 ripper.py -github https://github.com/username/repo.git -a`. This will clone the specified GitHub repository, collect all `.py`, `.txt`, `.json`, and `.md` files (including hidden files), and store them in `project_contents.txt`.
 
 ## How It Works
 
@@ -88,8 +88,8 @@ Follow these steps to set up and use the Ripper script:
 Start by cloning this repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/ripper-project.git
-cd ripper-project
+git clone https://github.com/RapolasRimeika/ripper.git
+cd ripper
 ```
 
 ### 2. Install Dependencies
@@ -105,10 +105,10 @@ pip install -r requirements.txt
 To streamline the use of this script, you can create an alias so that you can run it from anywhere without typing the full path. To do this, add the following line to your shell configuration file (e.g., `.bashrc`, `.bash_profile`, or `.zshrc` depending on your shell):
 
 ```bash
-alias ripper="python /path/to/ripper-project/Ripper_script.py"
+alias ripper="python /path/to/ripper/ripper.py"
 ```
 
-Make sure to replace `/path/to/ripper-project/` with the actual path where you cloned the repository. After saving the file, apply the changes by running:
+Make sure to replace `/path/to/ripper/` with the actual path where you cloned the repository. After saving the file, apply the changes by running:
 
 ```bash
 source ~/.bashrc  # or ~/.zshrc depending on your shell
